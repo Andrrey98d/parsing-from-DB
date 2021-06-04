@@ -8,10 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Aspose.Zip;
+using Aspose.Zip.Saving;
+using Aspose.Zip.SevenZip;
+using Ionic.Zip;
 using Microsoft.SqlServer;
 using Microsoft.SqlServer.Server;
 using System.IO;
 using System.Data.SQLite;
+
 
 namespace SQL_TO_ZIP_v2__WF_
 {
@@ -23,80 +28,85 @@ namespace SQL_TO_ZIP_v2__WF_
         //наша бд под паролем, и есть имя юзера
         public const string QUERY = "SELECT * FROM Users";
         public const string serverQuery = "SELECT * FROM dbo.table";
-
         public SQL_bd()
         {
-
-            InitializeComponent();
+            InitializeComponent();   
         }
 
         private void SQL_bd_Load(object sender, EventArgs e)
         {
             // TODO: данная строка кода позволяет загрузить данные в таблицу "itpDataSet.table". При необходимости она может быть перемещена или удалена.
-
+            this.tableTableAdapter.Fill(this.itpDataSet.table);
 
         }
 
         private void show_ds_Click(object sender, EventArgs e)
         {
-            SQLiteConnection sqcon = new SQLiteConnection(CON);
-            sqcon.Open();
-            SQLiteCommand Cmd = new SQLiteCommand(QUERY, sqcon); // or sqcon
-            DataTable Dt = new DataTable();
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(Cmd);
-            sda.Fill(Dt);
 
         }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             List<string> column_values = new List<string>();
             List<string> selected_values = new List<string>();
-            foreach (DataGridViewRow Datarow in dataGridView1.Rows)
+            //string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+            _ = e.RowIndex;
+            var row_index = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow selectedRow = dataGridView1.Rows[row_index];
+            for (int z = 0; z < selectedRow.Cells.Count; z++)
             {
-                if (Datarow.Cells[0].Value != null && Datarow.Cells[1].Value != null)
-                {
-                    for (int i = 0; i < Datarow.Cells.Count; i++)
-                    {
-                        //MessageBox.Show(Datarow.Cells[i].Value.ToString());
-                        column_values.Add(Datarow.Cells[i].Value.ToString());
-                        int index = e.RowIndex;
-                        var row_index = dataGridView1.CurrentCell.RowIndex;
-                        DataGridViewRow selectedRow = dataGridView1.Rows[row_index];
-                        for (int z = 0; z < selectedRow.Cells.Count; z++)
-                        {
-                            selected_values.Add(selectedRow.Cells[z].Value.ToString());
-                        }
-                        MessageBox.Show($"Значения с {selectedRow} строки добавлены в список");
-                        foreach (var val in selected_values)
-                        {
-                            textBox1.Text += val + " ";
-                        }
-                        //DataGridViewCellCollection cells = DataRow[row_index].Cells;
-                    /*    string[] values = cells;  */              }
-                }
-
+                selected_values.Add(selectedRow.Cells[z].Value.ToString());
             }
+            foreach (var val in selected_values)
+            {
+                textBox1.Text += val + " ";
+            }
+            int index = e.ColumnIndex;
+            int index_ = dataGridView1.CurrentCell.ColumnIndex;
+            var cell_index = dataGridView1.CurrentCell.OwningColumn.Index;
+            DataGridViewColumn col = dataGridView1.Columns[index];
+            textBox3.Text += col;
+            string path = "D:\\";
+            string filename = "=>ID_guid foreach";
+            OpenFileDialog ofd = new OpenFileDialog();
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == DialogResult.Cancel) 
+                return;
+            sfd.InitialDirectory = path;
 
-          //информация о выбранной ячейке  //string value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
-            //MessageBox.Show(value);
+            //DataGridViewCellCollection cells = DataRow[row_index].Cells;
+            /*    string[] values = cells;  */
+            //сюда прикручиваем архивацию по 7зип, добавляем содержимое текста в archivecomments. так же, можно сплитом повыдергивать значения, для занесения инфы в path
+            // !!!-!!! ДОБАВИТЬ ЧТОБЫ ПРИ ВЫБОРЕ ЯЧЕЙКИ ОНО АВТОМАТОМ ПОДГОНЯЛО ВСЮ СТРОКУ И ХЕАДЕР
         }
-        //      string value =
-        //datagridviewID.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); 
 
-        /*Using the bove code you will get value of the cell you cliked.If you want to get value of paricular column in the clicked row, just replace
-         e.ColumnIndex with the column index you want*/
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int index = e.ColumnIndex;
+            _ = dataGridView1.CurrentCell.ColumnIndex;
+            DataGridViewColumn col = dataGridView1.Columns[index];
+            textBox2.Text += col.HeaderText;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            table1BindingSource.EndEdit();
+            tableTableAdapter.Update(itpDataSet);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //информация о выбранной ячейке  //string value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+        //MessageBox.Show(value);
     }
-    }
+}
+    //      string value =
+    //datagridviewID.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); 
 
-
-
-//ArrayList sqlGuidList = new ArrayList();
-//sqlGuidList.Add(new SqlGuid("3AAAAAAA-BBBB-CCCC-DDDD-2EEEEEEEEEEE"));
-//sqlGuidList.Add(new SqlGuid("2AAAAAAA-BBBB-CCCC-DDDD-1EEEEEEEEEEE"));
-//sqlGuidList.Add(new SqlGuid("1AAAAAAA-BBBB-CCCC-DDDD-3EEEEEEEEEEE")); 
-
-
-
-//var row_values = dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString();
-//MessageBox.Show(row_values);
+    /*Using the bove code you will get value of the cell you clicked.If you want to get value of paricular column in the clicked row, just replace
+     e.ColumnIndex with the column index you want*/
