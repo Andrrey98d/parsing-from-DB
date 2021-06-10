@@ -15,7 +15,9 @@ using Ionic.Zip;
 using Microsoft.SqlServer;
 using Microsoft.SqlServer.Server;
 using System.IO;
+using System.IO.Compression;
 using System.Data.SQLite;
+using System.Diagnostics;
 
 
 namespace SQL_TO_ZIP_v2__WF_
@@ -23,90 +25,127 @@ namespace SQL_TO_ZIP_v2__WF_
     public partial class SQL_bd : Form
     {
         public const string CON = @"Data Source = D:\usersdata.db;Version=3;";
-        public const string connectionString = @"Data Source=DESKTOP-9MRV6E2;Initial Catalog=itp;Integrated Security=True";
-        //на случай если
-        //наша бд под паролем, и есть имя юзера
+        public const string connectionString = @"Data Source=DESKTOP-9MRV6E2;Initial Catalog=itp;Integrated Security=True"; //на случай если наша бд под паролем, и есть имя юзера
         public const string QUERY = "SELECT * FROM Users";
         public const string serverQuery = "SELECT * FROM dbo.table";
         public SQL_bd()
         {
-            InitializeComponent();   
+            InitializeComponent();
         }
 
         private void SQL_bd_Load(object sender, EventArgs e)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "itpDataSet.table". При необходимости она может быть перемещена или удалена.
-            this.tableTableAdapter.Fill(this.itpDataSet.table);
-
-        }
-
-        private void show_ds_Click(object sender, EventArgs e)
-        {
-
+            this.tableTableAdapter1.Fill(this.itpDataSet1.table);
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            List<string> column_values = new List<string>();
+            List<string> row_values = new List<string>();
             List<string> selected_values = new List<string>();
-            //string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+            string res = null;
+
+            for (int v = 0; v <= dataGridView1.Columns.Count; v++)
+            {   
+                DataGridViewCellCollection row_ = dataGridView1.Rows[v].Cells; // where row_ is a collection. 1 row = 1 collection
+                res += String.Join(" ", row_) + "\n";
+            }
+
             _ = e.RowIndex;
             var row_index = dataGridView1.CurrentCell.RowIndex;
             DataGridViewRow selectedRow = dataGridView1.Rows[row_index];
+            int index_ = dataGridView1.CurrentCell.ColumnIndex;
+            DataGridViewColumnCollection col = dataGridView1.Columns;
+            {
+                textBox3.Text = "";
+                textBox3.Text += col[index_].HeaderText;
+            }
+            var id = selectedRow.Cells[0].Value; // add guid/id
+            string path_ = @"D:\\" + col[index_].HeaderText + ".txt";
+            using (StreamWriter sw_ = new StreamWriter(path_, false, Encoding.Default)) // дозапись
+            {
+                sw_.WriteLine($"Current column: {col[index_].HeaderText}\n");
+                sw_.Close();
+            }
+
             for (int z = 0; z < selectedRow.Cells.Count; z++)
             {
                 selected_values.Add(selectedRow.Cells[z].Value.ToString());
             }
-            foreach (var val in selected_values)
+
+            using (StreamWriter sw = new StreamWriter(path_, true, Encoding.Default))
             {
-                textBox1.Text += val + " ";
+                sw.WriteLine($"Current row (index: {row_index}):  ");
+                foreach (var val_ in selected_values)
+                {
+                    sw.Write(val_ + "");
+                }
+                sw.WriteLine("\n" + id);
+                sw.Close();
             }
-            int index = e.ColumnIndex;
-            int index_ = dataGridView1.CurrentCell.ColumnIndex;
-            var cell_index = dataGridView1.CurrentCell.OwningColumn.Index;
-            DataGridViewColumn col = dataGridView1.Columns[index];
-            textBox3.Text += col;
-            string path = "D:\\";
-            string filename = "=>ID_guid foreach";
-            OpenFileDialog ofd = new OpenFileDialog();
-            SaveFileDialog sfd = new SaveFileDialog();
-            if (sfd.ShowDialog() == DialogResult.Cancel) 
-                return;
-            sfd.InitialDirectory = path;
-
-            //DataGridViewCellCollection cells = DataRow[row_index].Cells;
-            /*    string[] values = cells;  */
-            //сюда прикручиваем архивацию по 7зип, добавляем содержимое текста в archivecomments. так же, можно сплитом повыдергивать значения, для занесения инфы в path
-            // !!!-!!! ДОБАВИТЬ ЧТОБЫ ПРИ ВЫБОРЕ ЯЧЕЙКИ ОНО АВТОМАТОМ ПОДГОНЯЛО ВСЮ СТРОКУ И ХЕАДЕР
+           
+            _ = @"D:\\" + col[index_].HeaderText + ".zip";
+            string archive_path = @"D:\\" + dataGridView1.Name + ".zip";
+            _ = String.Join(" ", selected_values.ToArray());
+            dataGridView1.SelectAll();
+            using (var zip = new ZipFile(archive_path))
+            {
+                try
+                {
+                    zip.Comment += res;
+                    //zip.Comment += res_;
+                    //string[] comment_sections = zip.Comment.Split('\n');
+                    //if (comment_sections.Length > dataGridView1.Columns.Count) // сделать чтобы если количество коментов (1 комент = 1 строка с таблицы) выше этих строк (rows)                                           // то ничего не добавлять, т.е не дублировать результаты
+                    //{
+                    //    zip.Comment = "";
+                    //}
+                    if (zip.ContainsEntry(path_))
+                    {
+                        zip.UpdateFile(path_);
+                        MessageBox.Show("File updated");
+                    }
+                    else
+                    {
+                        zip.AddFile(path_);
+                        MessageBox.Show("File added");
+                    }
+                    zip.Save();
+                }
+                catch (ArgumentException)
+                {
+                    MessageBox.Show("Error occured");
+                }
+            }
+            Process.Start(path_);
+            _ = new OpenFileDialog();
+            _ = new SaveFileDialog();
+           
         }
-
-        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int index = e.ColumnIndex;
             _ = dataGridView1.CurrentCell.ColumnIndex;
             DataGridViewColumn col = dataGridView1.Columns[index];
+            textBox2.Text = "";
             textBox2.Text += col.HeaderText;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            table1BindingSource.EndEdit();
-            tableTableAdapter.Update(itpDataSet);
+            this.Validate();
+            this.tableBindingSource2.EndEdit();
+            this.tableTableAdapter1.Update(this.itpDataSet1.table);
         }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void TextBox3_TextChanged(object sender, EventArgs e)
         {
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click_1(object sender, EventArgs e)
         {
-
+            textBox1.Text = null;
         }
-
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+        
         //информация о выбранной ячейке  //string value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
-        //MessageBox.Show(value);
+        /*Using the bove code you will get value of the cell you clicked.If you want to get value of paricular column in the clicked row, just replace
+        se.ColumnIndex with the column index you want*/
     }
 }
-    //      string value =
-    //datagridviewID.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); 
-
-    /*Using the bove code you will get value of the cell you clicked.If you want to get value of paricular column in the clicked row, just replace
-     e.ColumnIndex with the column index you want*/
