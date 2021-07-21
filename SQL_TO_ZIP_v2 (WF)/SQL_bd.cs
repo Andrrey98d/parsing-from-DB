@@ -28,10 +28,12 @@ namespace SQL_TO_ZIP_v2__WF_
     public partial class SQL_bd : MaterialForm
     {
         public const string CON = @"Data Source = D:\usersdata.db;Version=3;";
-        public SqlConnection connectionString =  new SqlConnection("Data Source=DESKTOP-9MRV6E2;Initial Catalog=itp;Integrated Security=True"); //на случай если наша бд под паролем, и есть имя юзера
+        public SqlConnection connectionString = new SqlConnection("Data Source=DESKTOP-9MRV6E2;Initial Catalog=itp;Integrated Security=True"); //на случай если наша бд под паролем, и есть имя юзера
         public const string QUERY = "SELECT * FROM Users";
         public const string serverQuery = "SELECT * FROM dbo.table";
         public SqlCommand delete_row_cmd = new SqlCommand("Delete Users where ID = ");
+        public static int Index_ { get; set; }
+
         public SQL_bd()
         {
             InitializeComponent();
@@ -43,13 +45,14 @@ namespace SQL_TO_ZIP_v2__WF_
         private void SQL_bd_Load(object sender, EventArgs e)
         {
             this.tableTableAdapter1.Fill(this.itpDataSet1.table);
+
         }
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewColumnCollection col = dataGridView1.Columns;
             int index_ = dataGridView1.CurrentCell.ColumnIndex;
-            string path_ = @"D:\\" + col[index_].HeaderText + ".txt";
-            StreamWriter sw_ = new StreamWriter(path_, false, Encoding.Default);
+            string file_path_ = @"D:\\" + col[index_].HeaderText + ".txt";
+            StreamWriter sw_ = new StreamWriter(file_path_, false, Encoding.Default);
             var column_ind_ = dataGridView1.CurrentCell.ColumnIndex; //!!!
             var col_values = dataGridView1.Columns[column_ind_]; // !!!
             var row = this.dataGridView1.CurrentRow;
@@ -67,69 +70,84 @@ namespace SQL_TO_ZIP_v2__WF_
             List<string> row_values_ = new List<string>();
             res += String.Join(" ", row_values_) + "\n";
             DataGridViewRow selectedRow = dataGridView1.Rows[row_index];
+
             textBox3.Text = "";
-            textBox3.Text += col[index_].HeaderText;
+            var header_ = col[index_].HeaderText;
+            textBox3.Text += header_;
+            string path = @"D:\\" + header_ + "\\";
+            DirectoryInfo dirI = Directory.CreateDirectory(path);
+            DirectoryInfo dirInf = new DirectoryInfo(path);
+            if (dirInf.Exists)
+            {
+                MessageBox.Show("Current directory already exists!");
+            }
+            else if (!dirInf.Exists)
+            {
+                Directory.CreateDirectory(path);
+                MessageBox.Show($"Directory {header_} created");
+            }
             var id = selectedRow.Cells[0].Value;
             var cur_ = dataGridView1.CurrentCell.Value;
             textBox1.Text = cur_.ToString();
-            using (sw_)
+            string archive_path = path  + "GUID" + "[" + row.Index + "]" + ".zip";
+            using (var zip_ = new ZipFile(archive_path))
             {
-                sw_.WriteLine("\n");
-                sw_.WriteLine($"Current column: \n{col[index_].HeaderText}\n");
-                sw_.WriteLine($"Current dataGridView value: \n{cur_}");
-                sw_.Close();
+                using (sw_)
+                {
+                    sw_.WriteLine("\n");
+                    sw_.WriteLine($"Current column: \n{col[index_].HeaderText}");
+                    sw_.WriteLine($"\nCurrent column values:");
+                    Index_ = dataGridView1.CurrentCell.ColumnIndex;
+                    List<string> column_rows = new List<string>();
+                    for (int arg_ = 0; arg_ < dataGridView1.Rows.Count; arg_++)
+                    {
+                        column_rows.Add((string)dataGridView1[Index_, dataGridView1.Rows[arg_].Index].Value);
+                    }
+                    foreach (var func_ in column_rows)
+                    {
+                        textBox4.Text += (string)func_;
+                        sw_.Write(String.Join("", (string.Format("{0}", func_))) + "\n");
+                    }
+                    sw_.WriteLine($"Current dataGridView value: \n{cur_}");
+                    zip_.Comment = res;
+                    if (zip_.ContainsEntry(file_path_))
+                    {
+                        zip_.UpdateFile(file_path_);
+                        MessageBox.Show("File already exists. Updated!");
+                    }
+                    else if (!zip_.Name.Contains(file_path_))
+                    {
+                        zip_.AddFile(file_path_);
+                        MessageBox.Show("File added");
+                    }
+                    for (int i = 0; i < dataGridView1.RowCount; i++) {
+                        var loop_row = dataGridView1.Rows[i];
+                        loop_row.Cells.Cast<DataGridViewCell>().ToList().ForEach(lr_cell => 
+                        {
+                        zip_.Comment += (String.Join("  ", (string.Format("{0}", lr_cell.Value))));
+                        });
+                    }
+                    zip_.Save();
+                    sw_.Close();
+                    MessageBox.Show("Done!");
+                }
             }
 
             _ = @"D:\\" + col[index_].HeaderText + ".zip";
-            string archive_path = @"D:\\" + dataGridView1.Name + ".zip";
-            //_ = String.Join(" ", selected_values.ToArray());
+            _ = @"D:\\" + row.Index + ".zip"; // archive path
+
             DataGridViewColumn newColumn = dataGridView1.Columns.GetColumnCount
             (DataGridViewElementStates.Selected) == 1 ? dataGridView1.SelectedColumns[columnIndex_] : null;//.SelectAll()  // dataGridView1.SelectedColumns
-            using (var zip = new ZipFile(archive_path))
-            {
-                try
-                {
-                    zip.Comment = res;
-                    //zip.Comment += res_;
-                    //string[] comment_sections = zip.Comment.Split('\n');
-                    //if (comment_sections.L  ength > dataGridView1.Columns.Count) // сделать чтобы если количество коментов (1 комент = 1 строка с таблицы) выше этих строк (rows)                                           // то ничего не добавлять, т.е не дублировать результаты
-                    //{
-                    //    zip.Comment = "";
-                    //}
-                    if (zip.ContainsEntry(path_))
-                    {
-                        zip.UpdateFile(path_);
-                        MessageBox.Show("File updated");
-                    }
-                    else
-                    {
-                        zip.AddFile(path_);
-                        MessageBox.Show("File added");
-                    }
-                    zip.Save();
-                }
-                catch (ArgumentException)
-                {
-                    MessageBox.Show("Error occured");
-                }
-            }
-            Process.Start(path_);
-            _ = new OpenFileDialog();
-            _ = new SaveFileDialog();
-
+                                                                                                           //zip.Comment += res_;
+                                                                                                           //string[] comment_sections = zip.Comment.Split('\n');
+                                                                                                           //if (comment_sections.Length > dataGridView1.Columns.Count) // сделать чтобы если количество коментов (1 комент = 1 строка с таблицы) выше этих строк (rows)                                           // то ничего не добавлять, т.е не дублировать результаты
+                                                                                                           //{
+                                                                                                           //    zip.Comment = "";
+                                                                                                           //}
         }
         private void DataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            int index_ = dataGridView1.CurrentCell.ColumnIndex;
-            List<string> column_rows = new List<string>();
-            for (int arg_ = 0; arg_ < dataGridView1.Rows.Count; arg_++)
-            {
-                column_rows.Add((string)dataGridView1[index_, dataGridView1.Rows[arg_].Index].Value);
-            }
-            foreach (var func_ in column_rows)
-            {
-                textBox4.Text += (string)func_;
-            }
+            //не нужно, но пусть пока повисит
         }
         private void TextBox3_TextChanged(object sender, EventArgs e)
         {
@@ -147,7 +165,7 @@ namespace SQL_TO_ZIP_v2__WF_
             }
             this.Validate();
             this.tableBindingSource2.EndEdit();
-            this.tableTableAdapter1.Update(this.itpDataSet1.table); //!!!
+            this.tableTableAdapter1.Update(this.itpDataSet1.table); //!!! добавить апдейтер по делеткомманд
             SqlDataAdapter sqa = new SqlDataAdapter();
             sqa.Update(this.itpDataSet1);
             MessageBox.Show("Updated");
@@ -207,6 +225,14 @@ namespace SQL_TO_ZIP_v2__WF_
             //dataGridView1.Rows[index_].Selected = true;
             //int rowIndex = dataGridView1.CurrentCell.RowIndex;
             //dataGridView1.Rows.RemoveAt(rowIndex);
+        }
+        private void materialButton5_Click(object sender, EventArgs e)
+        {
+            textBox4.Text = null;
+        }
+
+        private void materialLabel2_Click(object sender, EventArgs e)
+        {
         }
     }
 }

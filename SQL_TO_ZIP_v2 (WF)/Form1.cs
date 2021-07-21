@@ -25,8 +25,8 @@ namespace SQL_TO_ZIP_v2__WF_
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue500, Primary.Blue500, Accent.LightBlue200, TextShade.WHITE);
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-
+        {    
+            this.SetDesktopLocation(650, 400);
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -35,7 +35,9 @@ namespace SQL_TO_ZIP_v2__WF_
         private void button1_Click(object sender, EventArgs e)
         {
             SQL_bd bd = new SQL_bd();
+            bd.StartPosition = FormStartPosition.Manual;
             bd.Show();
+
         }
         private void window_onclose(object sender, KeyEventArgs e)
         {

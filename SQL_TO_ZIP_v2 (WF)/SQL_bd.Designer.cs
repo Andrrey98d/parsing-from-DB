@@ -59,6 +59,7 @@ namespace SQL_TO_ZIP_v2__WF_
             this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
             this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
             this.materialButton4 = new MaterialSkin.Controls.MaterialButton();
+            this.materialButton5 = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tableBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itpDataSet1)).BeginInit();
@@ -83,7 +84,6 @@ namespace SQL_TO_ZIP_v2__WF_
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(548, 261);
             this.dataGridView1.TabIndex = 0;
-
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellDoubleClick);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView1_ColumnHeaderMouseClick);
@@ -207,9 +207,10 @@ namespace SQL_TO_ZIP_v2__WF_
             this.materialLabel2.Location = new System.Drawing.Point(852, 75);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(51, 19);
+            this.materialLabel2.Size = new System.Drawing.Size(32, 19);
             this.materialLabel2.TabIndex = 13;
-            this.materialLabel2.Text = "Header";
+            this.materialLabel2.Text = "Row";
+            this.materialLabel2.Click += new System.EventHandler(this.materialLabel2_Click);
             // 
             // materialLabel3
             // 
@@ -305,11 +306,32 @@ namespace SQL_TO_ZIP_v2__WF_
             this.materialButton4.UseAccentColor = false;
             this.materialButton4.UseVisualStyleBackColor = true;
             // 
+            // materialButton5
+            // 
+            this.materialButton5.AutoSize = false;
+            this.materialButton5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButton5.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButton5.Depth = 0;
+            this.materialButton5.HighEmphasis = true;
+            this.materialButton5.Icon = null;
+            this.materialButton5.Location = new System.Drawing.Point(183, 411);
+            this.materialButton5.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButton5.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton5.Name = "materialButton5";
+            this.materialButton5.Size = new System.Drawing.Size(171, 43);
+            this.materialButton5.TabIndex = 21;
+            this.materialButton5.Text = "CLEAR COLUMN VALUES";
+            this.materialButton5.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButton5.UseAccentColor = false;
+            this.materialButton5.UseVisualStyleBackColor = true;
+            this.materialButton5.Click += new System.EventHandler(this.materialButton5_Click);
+            // 
             // SQL_bd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 461);
+            this.Controls.Add(this.materialButton5);
             this.Controls.Add(this.materialButton4);
             this.Controls.Add(this.materialLabel4);
             this.Controls.Add(this.textBox4);
@@ -373,5 +395,6 @@ namespace SQL_TO_ZIP_v2__WF_
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private System.Data.SQLite.SQLiteCommandBuilder sqLiteCommandBuilder1;
         private MaterialSkin.Controls.MaterialButton materialButton4;
+        private MaterialSkin.Controls.MaterialButton materialButton5;
     }
 }
