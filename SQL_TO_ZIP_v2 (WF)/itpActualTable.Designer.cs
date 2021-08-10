@@ -20,9 +20,9 @@ namespace SQL_TO_ZIP_v2__WF_ {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("itpDataSet1")]
+    [global::System.Xml.Serialization.XmlRootAttribute("itpActualTable")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class itpDataSet1 : global::System.Data.DataSet {
+    public partial class itpActualTable : global::System.Data.DataSet {
         
         private tableDataTable tabletable;
         
@@ -30,7 +30,7 @@ namespace SQL_TO_ZIP_v2__WF_ {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public itpDataSet1() {
+        public itpActualTable() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace SQL_TO_ZIP_v2__WF_ {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected itpDataSet1(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected itpActualTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -127,7 +127,7 @@ namespace SQL_TO_ZIP_v2__WF_ {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            itpDataSet1 cln = ((itpDataSet1)(base.Clone()));
+            itpActualTable cln = ((itpActualTable)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -199,9 +199,9 @@ namespace SQL_TO_ZIP_v2__WF_ {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "itpDataSet1";
+            this.DataSetName = "itpActualTable";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/itpDataSet1.xsd";
+            this.Namespace = "http://tempuri.org/itpActualTable.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tabletable = new tableDataTable();
@@ -225,7 +225,7 @@ namespace SQL_TO_ZIP_v2__WF_ {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            itpDataSet1 ds = new itpDataSet1();
+            itpActualTable ds = new itpActualTable();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -284,6 +284,12 @@ namespace SQL_TO_ZIP_v2__WF_ {
             private global::System.Data.DataColumn columnSECOND_ROW;
             
             private global::System.Data.DataColumn columnTHIRD_ROW;
+            
+            private global::System.Data.DataColumn columnFOURTH_ROW;
+            
+            private global::System.Data.DataColumn columnFIFTH_ROW;
+            
+            private global::System.Data.DataColumn columnSIXTH_ROW;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -344,6 +350,30 @@ namespace SQL_TO_ZIP_v2__WF_ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FOURTH_ROWColumn {
+                get {
+                    return this.columnFOURTH_ROW;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FIFTH_ROWColumn {
+                get {
+                    return this.columnFIFTH_ROW;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SIXTH_ROWColumn {
+                get {
+                    return this.columnSIXTH_ROW;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -379,12 +409,15 @@ namespace SQL_TO_ZIP_v2__WF_ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public tableRow AddtableRow(string FIRST_ROW, string SECOND_ROW, short THIRD_ROW) {
+            public tableRow AddtableRow(string FIRST_ROW, string SECOND_ROW, short THIRD_ROW, string FOURTH_ROW, string FIFTH_ROW, string SIXTH_ROW) {
                 tableRow rowtableRow = ((tableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         FIRST_ROW,
                         SECOND_ROW,
-                        THIRD_ROW};
+                        THIRD_ROW,
+                        FOURTH_ROW,
+                        FIFTH_ROW,
+                        SIXTH_ROW};
                 rowtableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtableRow);
                 return rowtableRow;
@@ -410,6 +443,9 @@ namespace SQL_TO_ZIP_v2__WF_ {
                 this.columnFIRST_ROW = base.Columns["FIRST ROW"];
                 this.columnSECOND_ROW = base.Columns["SECOND ROW"];
                 this.columnTHIRD_ROW = base.Columns["THIRD ROW"];
+                this.columnFOURTH_ROW = base.Columns["FOURTH ROW"];
+                this.columnFIFTH_ROW = base.Columns["FIFTH ROW"];
+                this.columnSIXTH_ROW = base.Columns["SIXTH ROW"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -421,8 +457,17 @@ namespace SQL_TO_ZIP_v2__WF_ {
                 base.Columns.Add(this.columnSECOND_ROW);
                 this.columnTHIRD_ROW = new global::System.Data.DataColumn("THIRD ROW", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTHIRD_ROW);
+                this.columnFOURTH_ROW = new global::System.Data.DataColumn("FOURTH ROW", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFOURTH_ROW);
+                this.columnFIFTH_ROW = new global::System.Data.DataColumn("FIFTH ROW", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFIFTH_ROW);
+                this.columnSIXTH_ROW = new global::System.Data.DataColumn("SIXTH ROW", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSIXTH_ROW);
                 this.columnFIRST_ROW.MaxLength = 10;
                 this.columnSECOND_ROW.MaxLength = 10;
+                this.columnFOURTH_ROW.MaxLength = 10;
+                this.columnFIFTH_ROW.MaxLength = 10;
+                this.columnSIXTH_ROW.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -490,7 +535,7 @@ namespace SQL_TO_ZIP_v2__WF_ {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                itpDataSet1 ds = new itpDataSet1();
+                itpActualTable ds = new itpActualTable();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -613,6 +658,54 @@ namespace SQL_TO_ZIP_v2__WF_ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FOURTH_ROW {
+                get {
+                    try {
+                        return ((string)(this[this.tabletable.FOURTH_ROWColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'FOURTH ROW\' в таблице \'table\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletable.FOURTH_ROWColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FIFTH_ROW {
+                get {
+                    try {
+                        return ((string)(this[this.tabletable.FIFTH_ROWColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'FIFTH ROW\' в таблице \'table\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletable.FIFTH_ROWColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SIXTH_ROW {
+                get {
+                    try {
+                        return ((string)(this[this.tabletable.SIXTH_ROWColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'SIXTH ROW\' в таблице \'table\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletable.SIXTH_ROWColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsFIRST_ROWNull() {
                 return this.IsNull(this.tabletable.FIRST_ROWColumn);
             }
@@ -645,6 +738,42 @@ namespace SQL_TO_ZIP_v2__WF_ {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTHIRD_ROWNull() {
                 this[this.tabletable.THIRD_ROWColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFOURTH_ROWNull() {
+                return this.IsNull(this.tabletable.FOURTH_ROWColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFOURTH_ROWNull() {
+                this[this.tabletable.FOURTH_ROWColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFIFTH_ROWNull() {
+                return this.IsNull(this.tabletable.FIFTH_ROWColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFIFTH_ROWNull() {
+                this[this.tabletable.FIFTH_ROWColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSIXTH_ROWNull() {
+                return this.IsNull(this.tabletable.SIXTH_ROWColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSIXTH_ROWNull() {
+                this[this.tabletable.SIXTH_ROWColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -683,7 +812,7 @@ namespace SQL_TO_ZIP_v2__WF_ {
         }
     }
 }
-namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
+namespace SQL_TO_ZIP_v2__WF_.itpActualTableTableAdapters {
     
     
     /// <summary>
@@ -810,15 +939,22 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
             tableMapping.ColumnMappings.Add("FIRST ROW", "FIRST ROW");
             tableMapping.ColumnMappings.Add("SECOND ROW", "SECOND ROW");
             tableMapping.ColumnMappings.Add("THIRD ROW", "THIRD ROW");
+            tableMapping.ColumnMappings.Add("FOURTH ROW", "FOURTH ROW");
+            tableMapping.ColumnMappings.Add("FIFTH ROW", "FIFTH ROW");
+            tableMapping.ColumnMappings.Add("SIXTH ROW", "SIXTH ROW");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[table] ([FIRST ROW], [SECOND ROW], [THIRD ROW]) VALUES (@FIRST" +
-                "_ROW, @SECOND_ROW, @THIRD_ROW)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[table] ([FIRST ROW], [SECOND ROW], [THIRD ROW], [FOURTH ROW], " +
+                "[FIFTH ROW], [SIXTH ROW]) VALUES (@FIRST_ROW, @SECOND_ROW, @THIRD_ROW, @FOURTH_R" +
+                "OW, @FIFTH_ROW, @SIXTH_ROW)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FIRST_ROW", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FIRST ROW", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SECOND_ROW", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SECOND ROW", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@THIRD_ROW", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "THIRD ROW", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FOURTH_ROW", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FOURTH ROW", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FIFTH_ROW", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FIFTH ROW", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SIXTH_ROW", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SIXTH ROW", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -834,7 +970,8 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [FIRST ROW], [SECOND ROW], [THIRD ROW] FROM dbo.[table]";
+            this._commandCollection[0].CommandText = "SELECT [FIRST ROW], [SECOND ROW], [THIRD ROW], [FOURTH ROW], [FIFTH ROW], [SIXTH " +
+                "ROW] FROM dbo.[table]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -842,7 +979,7 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(itpDataSet1.tableDataTable dataTable) {
+        public virtual int Fill(itpActualTable.tableDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -855,9 +992,9 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual itpDataSet1.tableDataTable GetData() {
+        public virtual itpActualTable.tableDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            itpDataSet1.tableDataTable dataTable = new itpDataSet1.tableDataTable();
+            itpActualTable.tableDataTable dataTable = new itpActualTable.tableDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -865,14 +1002,14 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(itpDataSet1.tableDataTable dataTable) {
+        public virtual int Update(itpActualTable.tableDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(itpDataSet1 dataSet) {
+        public virtual int Update(itpActualTable dataSet) {
             return this.Adapter.Update(dataSet, "table");
         }
         
@@ -895,7 +1032,7 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string FIRST_ROW, string SECOND_ROW, global::System.Nullable<short> THIRD_ROW) {
+        public virtual int Insert(string FIRST_ROW, string SECOND_ROW, global::System.Nullable<short> THIRD_ROW, string FOURTH_ROW, string FIFTH_ROW, string SIXTH_ROW) {
             if ((FIRST_ROW == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -913,6 +1050,24 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((FOURTH_ROW == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(FOURTH_ROW));
+            }
+            if ((FIFTH_ROW == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(FIFTH_ROW));
+            }
+            if ((SIXTH_ROW == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(SIXTH_ROW));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1022,7 +1177,7 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(itpDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(itpActualTable dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._tableTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.table.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -1041,7 +1196,7 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(itpDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(itpActualTable dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._tableTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.table.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -1059,7 +1214,7 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(itpDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(itpActualTable dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             if ((this._tableTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.table.Select(null, null, global::System.Data.DataViewRowState.Deleted);
@@ -1101,7 +1256,7 @@ namespace SQL_TO_ZIP_v2__WF_.itpDataSet1TableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(itpDataSet1 dataSet) {
+        public virtual int UpdateAll(itpActualTable dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

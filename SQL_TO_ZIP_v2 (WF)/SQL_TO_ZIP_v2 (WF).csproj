@@ -51,6 +51,9 @@
     <Reference Include="MaterialSkin, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.2.1\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
+    <Reference Include="SequentialGuid, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SequentialGuid.2.5.0\lib\net45\SequentialGuid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -92,10 +95,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="itpDataSet1.Designer.cs">
+    <Compile Include="itpActualTable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>itpDataSet1.xsd</DependentUpon>
+      <DependentUpon>itpActualTable.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="itpDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>itpDataSet2.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,16 +128,27 @@
     <EmbeddedResource Include="SQL_bd.resx">
       <DependentUpon>SQL_bd.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="itpDataSet1.xsc">
-      <DependentUpon>itpDataSet1.xsd</DependentUpon>
+    <None Include="itpActualTable.xsc">
+      <DependentUpon>itpActualTable.xsd</DependentUpon>
     </None>
-    <None Include="itpDataSet1.xsd">
+    <None Include="itpActualTable.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>itpDataSet1.Designer.cs</LastGenOutput>
+      <LastGenOutput>itpActualTable.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="itpDataSet1.xss">
-      <DependentUpon>itpDataSet1.xsd</DependentUpon>
+    <None Include="itpActualTable.xss">
+      <DependentUpon>itpActualTable.xsd</DependentUpon>
+    </None>
+    <None Include="itpDataSet2.xsc">
+      <DependentUpon>itpDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="itpDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>itpDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="itpDataSet2.xss">
+      <DependentUpon>itpDataSet2.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
