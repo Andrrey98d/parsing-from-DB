@@ -40,6 +40,7 @@ namespace SQL_TO_ZIP_v2__WF_
         }
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+
             DataGridViewColumnCollection col = dataGridView1.Columns;
             int index_ = dataGridView1.CurrentCell.ColumnIndex;
             var row_index = dataGridView1.CurrentCell.RowIndex;
@@ -47,11 +48,19 @@ namespace SQL_TO_ZIP_v2__WF_
             var value = dataGridView1[index_, row.Index].Value.ToString().Replace(" ", "");
             //StreamReader sr_ = new StreamReader(file_path_);
             string res = null;
-            int rowIndex_ = e.RowIndex;
-          
+            int rowIndex_ = e.RowIndex; 
             var header_ = col[index_].HeaderText;
+
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            string temp_path = "";
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                temp_path += fbd.SelectedPath;
+            }
+            string path = temp_path + header_ + "\\";
+
             var cur_ = dataGridView1.CurrentCell.Value;
-            string file_path_ = @"D:\\" + col[index_].HeaderText + "(" + value.Substring(0, value.Length) + ")" + ".txt";       
+            string file_path_ = temp_path + col[index_].HeaderText + "(" + value.Substring(0, value.Length) + ")" + ".txt";       
             StreamWriter sw_ = new StreamWriter(file_path_, false, Encoding.Default);
             using (sw_)
             {
@@ -86,13 +95,7 @@ namespace SQL_TO_ZIP_v2__WF_
                 List<string> row_values_ = new List<string>();
                 res += String.Join(" ", row_values_) + "\n"; // zip.comment (+=)
 
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                string temp_path = "";
-                if (fbd.ShowDialog() == DialogResult.OK)
-                {
-                    temp_path += fbd.SelectedPath;
-                }
-                string path = temp_path + header_ + "\\";
+               
                 Guid guid = Guid.NewGuid();
                 string archive_path = path + "GUID" + "[" + row_index + "]" + guid + ".zip"; // пробный вариант
                 string archive_path_2 = path + "";
@@ -104,12 +107,10 @@ namespace SQL_TO_ZIP_v2__WF_
                     Directory.CreateDirectory(path);
                     MessageBox.Show($"Directory {header_} created");
                 }
-
-              
-                var directory = new DirectoryInfo("D:\\"); // заменить на temp_path
+                var directory = new DirectoryInfo(temp_path); // заменить на temp_path
                 var recentFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
 
-                string new_path = @"D:\\" + recentFile;
+                string new_path = temp_path + recentFile;
                 using (var zip_ = new ZipFile(archive_path))
                 {
                     zip_.Comment = null;
@@ -120,7 +121,7 @@ namespace SQL_TO_ZIP_v2__WF_
                     }
                     else if (!zip_.Name.Contains(recentFile.ToString()))
                     {
-                        zip_.AddFile(@"D:\" + recentFile);
+                        zip_.AddFile(temp_path + recentFile);
                         MessageBox.Show("File added");
                     }
                     var loop_row = dataGridView1.Rows[row_index];
@@ -136,7 +137,18 @@ namespace SQL_TO_ZIP_v2__WF_
                     {
                         MessageBox.Show("FileNotFoundException");
                     }
-                }
+                    DialogResult drRes = MessageBox.Show("Удалить исходный файл?", "",  MessageBoxButtons.YesNo);
+                    switch (drRes)
+                    {
+                        case DialogResult.Yes:
+                            File.Delete(temp_path + recentFile + "");
+                            break;
+                        case DialogResult.No:
+                            return;
+                    }
+
+                   
+                };
             }
         }
         private void MaterialButton2_Click(object sender, EventArgs e)
